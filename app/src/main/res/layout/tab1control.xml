@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.webs.luminancesleep.AmpereIntelliDrive.IntelliDriveManager$tab1">
+
+    <TextView
+        android:text="Set Brightness of Blue LEDs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentStart="true"
+        android:id="@+id/blueledseekbar"
+        android:layout_alignParentEnd="true"
+        android:max="4"
+        />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/blueledseekbar"
+        android:id="@+id/blueseekstatus"
+        android:layout_alignEnd="@+id/ArmBlueBrightness"
+        android:layout_alignStart="@+id/ArmBlueBrightness"
+        android:textAlignment="center" />
+
+    <Button
+        android:text="ARM VIOLET BRIGHTNESS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ArmVioletBrightness"
+        android:layout_above="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/violetseekstatus"
+        android:textAlignment="center"
+        android:layout_above="@+id/ArmVioletBrightness"
+        android:layout_alignStart="@+id/ArmVioletBrightness"
+        android:layout_alignEnd="@+id/ArmVioletBrightness" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/violetseekbar"
+        android:max="4"
+        android:layout_above="@+id/violetseekstatus"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Set Brightness of Violet LEDs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7"
+        android:layout_above="@+id/violetseekbar"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="ARM BLUE BRIGHTNESS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ArmBlueBrightness"
+        android:layout_below="@+id/blueseekstatus"
+        android:layout_alignStart="@+id/ArmVioletBrightness"
+        android:layout_alignEnd="@+id/ArmVioletBrightness" />
+
+    <TextView
+        android:id="@+id/TextView67"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='Slide to desired setting, press "Arm" for corresponding colour and then press "Send" for that corresponding colour. Then apply in the control tab.'
+        android:textAlignment="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

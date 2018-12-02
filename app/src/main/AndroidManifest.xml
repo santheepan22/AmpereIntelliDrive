@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.webs.luminancesleep.AmpereIntelliDrive">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Ampere IntelliDrive"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.webs.luminancesleep.AmpereIntelliDrive.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.webs.luminancesleep.AmpereIntelliDrive.DeviceList" />
+        <activity
+            android:name="com.webs.luminancesleep.AmpereIntelliDrive.IntelliDriveManager"
+            android:label="IntelliDrive Manager"
+            android:parentActivityName="com.webs.luminancesleep.AmpereIntelliDrive.DeviceList"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.webs.luminancesleep.AmpereIntelliDrive.DeviceList" />
+        </activity>
+    </application>
+
+</manifest>
