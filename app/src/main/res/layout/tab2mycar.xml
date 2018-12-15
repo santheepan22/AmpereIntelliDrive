@@ -34,8 +34,8 @@
         android:layout_marginEnd="-27dp"
         android:progressDrawable="@drawable/seekbar_steering"
         android:rotation="360"
-        android:max="40"
-        android:progress="20"/>
+        android:max="80"
+        android:progress="40"/>
 
     <FrameLayout
         android:id="@+id/ThrottleFrame"
@@ -59,15 +59,6 @@
 
     </FrameLayout>
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/disconnectbutton"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-225dp"
-        android:layout_marginBottom="117dp" />
-
     <TextView
         android:id="@+id/steeringTextView"
         android:layout_width="wrap_content"
@@ -78,12 +69,32 @@
         android:layout_marginTop="3dp"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/reverseButton"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/disconnectbutton"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="0dp"
+        android:text="RVS" />
+
+    <Button
+        android:id="@+id/forwardButton"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/disconnectbutton"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="0dp"
+        android:text="FWD" />
+
     <TextView
         android:id="@+id/throttleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/switch1"
         android:layout_alignBottom="@+id/ThrottleFrame"
+        android:layout_alignParentEnd="true"
         android:text="TextView" />
 
 </RelativeLayout>

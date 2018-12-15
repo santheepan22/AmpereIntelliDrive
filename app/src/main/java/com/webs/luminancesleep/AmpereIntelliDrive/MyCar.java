@@ -10,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.bluetooth.BluetoothSocket;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.widget.ToggleButton;
 
 
 import java.io.IOException;
@@ -26,7 +29,7 @@ import java.util.UUID;
 // Button btnOn, btnOff, btnDis;
 public class MyCar extends Fragment {
 
-    Button btnOn, btnOff, Disconnect, AuthoriseCar;
+    Button btnOn, btnOff, Disconnect, AuthoriseCar, reverseButton, forwardButton;
     TextView txtArduino, txtString, txtStringLength, sensorView0, sensorView1, sensorView2, sensorView3, steeringTextView, throttleTextView;
     Handler bluetoothIn;
     SeekBar seekBarSteering, seekBarThrottle;
@@ -113,6 +116,8 @@ public class MyCar extends Fragment {
 
 
 
+
+
         Disconnect = (Button) v.findViewById(R.id.disconnectbutton);
         Disconnect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -125,14 +130,32 @@ public class MyCar extends Fragment {
        seekBarThrottle.setOnSeekBarChangeListener(
                new SeekBar.OnSeekBarChangeListener() {
                    int throttleValue;
-                   String sendThrottleValue;
+                   String firstThrottleDigit;
+                   String finalThrottleDigit;
+                   String bufferForThrottleFirstAndFinalDigitSwap = "";
+                   int throttleValueLength = 0;
+                   String sendThrottleValue = "";
+                   String FinalSendThrottleValue = "";
+                   String arrayForThrottleValue[];
+
 
                    @Override
                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                        throttleValue = progress;
                        throttleTextView.setText("TV : " + progress + " / " +seekBarThrottle.getMax());
                        sendThrottleValue = Integer.toString(throttleValue);
-                       mConnectedThread.write("#"); /* indicates the start of the transmission for throttle value*/
+                       throttleValueLength = sendThrottleValue.length();
+/*                       arrayForThrottleValue = new String[throttleValueLength];
+                       for(int i =0; i<throttleValueLength;i++){
+                           arrayForThrottleValue[i] = sendThrottleValue.substring(i,i+1);
+                       }
+                       bufferForThrottleFirstAndFinalDigitSwap = arrayForThrottleValue[0];
+                       arrayForThrottleValue[0] =  arrayForThrottleValue[throttleValueLength - 1];
+                       arrayForThrottleValue[throttleValueLength - 1] = bufferForThrottleFirstAndFinalDigitSwap;
+                       for(int i =0; i<throttleValueLength;i++){
+                           FinalSendThrottleValue = arrayForThrottleValue[throttleValueLength - (1+i)] + FinalSendThrottleValue;
+                       }*/
+                       mConnectedThread.write("#");
                        mConnectedThread.write(sendThrottleValue);
                        mConnectedThread.write("@"); /*indicates the end of the transmission for throttle value*/
 
@@ -156,11 +179,16 @@ public class MyCar extends Fragment {
         seekBarSteering.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
                     int steeringValue;
+                    String sendSteeringValue;
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         steeringValue = progress;
                         steeringTextView.setText("SV : " + progress + " / " +seekBarSteering.getMax());
-
+                        steeringValue = progress + 50;
+                        sendSteeringValue = Integer.toString(steeringValue);
+                        mConnectedThread.write("s");
+                        mConnectedThread.write(sendSteeringValue);
+                        mConnectedThread.write("@"); /*indicates the end of the transmission for throttle value*/
                     }
 
                     @Override
@@ -182,6 +210,22 @@ public class MyCar extends Fragment {
             public void onClick(View v) {
                 mConnectedThread.write("A");
                 msg("Authorised");
+            }
+        });
+
+        reverseButton = (Button) v.findViewById(R.id.reverseButton);
+        reverseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write("(");
+            }
+        });
+
+        forwardButton = (Button) v.findViewById(R.id.forwardButton);
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mConnectedThread.write(")");
             }
         });
 
