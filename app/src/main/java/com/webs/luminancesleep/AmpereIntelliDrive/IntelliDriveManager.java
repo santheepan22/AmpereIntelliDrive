@@ -12,10 +12,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IntelliDriveManager extends AppCompatActivity {
-
-
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -24,12 +24,10 @@ public class IntelliDriveManager extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +38,21 @@ public class IntelliDriveManager extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        setupViewPager();
 
     }
 
+    private void setupViewPager() {
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new Control(), "Control");
+        adapter.addFragment(new MyCar(), "My Car");
+        adapter.addFragment(new Help(), "Help");
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(adapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,53 +75,41 @@ public class IntelliDriveManager extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    //deleted Placeholder Fragments from here _ why????
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private static final String TAG = "SectionsPageAdapter";
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
         public SectionsPagerAdapter(FragmentManager fm) {
+
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    Control tab1 = new Control();
-                    return tab1;
-                case 1:
-                    MyCar tab2 = new MyCar();
-                    return tab2;
-                case 2:
-                    Help tab3 = new Help();
-                    return tab3;
-                default:
-                    return null;
-            }
+            return mFragmentList.get(position);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return mFragmentList.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "CONTROL";
-                case 1:
-                    return "MY CAR";
-                case 2:
-                    return "HELP";
-            }
-            return null;
+            return mFragmentTitleList.get(position);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
         }
     }
 }
